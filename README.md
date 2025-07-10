@@ -102,7 +102,7 @@ wheel-strategy-tracker/
 │   ├── index.html
 │   └── favicon.ico
 ├── src/
-│   ├── App.js          # Main application component
+│   ├── app.js          # Main application component
 │   ├── index.js        # React entry point
 │   └── index.css       # Global styles with Tailwind
 ├── package.json        # Dependencies and scripts
