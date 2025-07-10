@@ -495,6 +495,29 @@ const addTrade = async () => {
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
+
+                      <div>
+  <label className="block text-sm font-medium text-gray-700 mb-1">Entry Price (optional)</label>
+  <input
+    type="number"
+    value={newTrade.entryPrice || ''}
+    onChange={(e) => setNewTrade({...newTrade, entryPrice: e.target.value})}
+    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    placeholder="e.g. 2400"
+  />
+</div>
+
+<div>
+  <label className="block text-sm font-medium text-gray-700 mb-1">Exit Price (optional)</label>
+  <input
+    type="number"
+    value={newTrade.exitPrice || ''}
+    onChange={(e) => setNewTrade({...newTrade, exitPrice: e.target.value})}
+    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    placeholder="e.g. 2600"
+  />
+</div>
+
               </div>
               
               <div className="flex justify-end space-x-2 mt-6">
