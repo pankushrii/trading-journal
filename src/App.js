@@ -203,6 +203,7 @@ const addTrade = async () => {
             >
               <option value="cash-secured-put">Cash Secured Put</option>
               <option value="covered-call">Covered Call</option>
+              <option value="stock-buy">Stock Buy</option>
             </select>
           </td>
                 <td className="px-6 py-4">₹{trade.earnings?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
@@ -440,6 +441,7 @@ const addTrade = async () => {
                   >
                     <option value="cash-secured-put">Cash Secured Put</option>
                     <option value="covered-call">Covered Call</option>
+                      <option value="stock-buy">Stock Buy</option>
                   </select>
                 </div>
                 
