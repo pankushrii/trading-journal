@@ -93,7 +93,10 @@ const addTrade = async () => {
     quantity: parseInt(updatedTrade.quantity),
     expiry: updatedTrade.expiry,
     trade_date: updatedTrade.tradeDate,
-    status: updatedTrade.status
+    status: updatedTrade.status,
+    entry_price: updatedTrade.entryPrice ? parseFloat(updatedTrade.entryPrice) : null,
+    exit_price: updatedTrade.exitPrice ? parseFloat(updatedTrade.exitPrice) : null
+
     // ⚠️ Do NOT include `total_premium` — it's auto-calculated
   };
 
@@ -207,6 +210,27 @@ const addTrade = async () => {
             </select>
           </td>
                 <td className="px-6 py-4">₹{trade.earnings?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+
+  <td className="px-6 py-4">
+  <input
+    type="number"
+    value={editData.entryPrice || ''}
+    onChange={(e) => setEditData({...editData, entryPrice: e.target.value})}
+    className="w-full px-2 py-1 border rounded"
+    placeholder="Entry"
+  />
+</td>
+
+<td className="px-6 py-4">
+  <input
+    type="number"
+    value={editData.exitPrice || ''}
+    onChange={(e) => setEditData({...editData, exitPrice: e.target.value})}
+    className="w-full px-2 py-1 border rounded"
+    placeholder="Exit"
+  />
+</td>
+
 
           <td className="px-6 py-4">
             <input
