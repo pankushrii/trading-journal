@@ -12,7 +12,7 @@ const App = () => {
     strikePrice: '',
     premium: '',
     quantity: '',
-    expiry: '',
+    expiry: '',a
     tradeDate: new Date().toISOString().split('T')[0],
     status: 'open'
   });
@@ -22,12 +22,16 @@ const App = () => {
   const fetchTrades = async () => {
     const { data, error } = await supabase.from('trades').select('*').order('trade_date', { ascending: false });
     if (error) console.error('Error fetching trades:', error);
-    else setTrades(data);
-  };
-  fetchTrades();
-}, []);
-
-
+    else else {
+  const enrichedTrades = data.map(trade => ({
+    ...trade,
+    strikePrice: trade.strike_price,
+    entryPrice: trade.entry_price,
+    exitPrice: trade.exit_price,
+    earnings: calculateEarnings(trade)
+  }));
+  setTrades(enrichedTrades);
+}
   // Save trades to localStorage whenever trades change
   useEffect(() => {
     localStorage.setItem('wheelTrades', JSON.stringify(trades));
