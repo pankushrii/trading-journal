@@ -48,7 +48,7 @@ const addTrade = async () => {
     expiry: newTrade.expiry,
     trade_date: newTrade.tradeDate,
     status: newTrade.status,
-    total_premium: parseFloat(newTrade.premium) * parseInt(newTrade.quantity)
+   // total_premium: parseFloat(newTrade.premium) * parseInt(newTrade.quantity)
   };
 
   try {
