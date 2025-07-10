@@ -39,17 +39,19 @@ const addTrade = async () => {
     return;
   }
 
-  const trade = {
-    stock: newTrade.stock,
-    strategy: newTrade.strategy,
-    strike_price: parseFloat(newTrade.strikePrice),
-    premium: parseFloat(newTrade.premium),
-    quantity: parseInt(newTrade.quantity),
-    expiry: newTrade.expiry,
-    trade_date: newTrade.tradeDate,
-    status: newTrade.status,
-   // total_premium: parseFloat(newTrade.premium) * parseInt(newTrade.quantity)
-  };
+ const trade = {
+  stock: newTrade.stock,
+  strategy: newTrade.strategy,
+  strike_price: parseFloat(newTrade.strikePrice),
+  premium: parseFloat(newTrade.premium),
+  quantity: parseInt(newTrade.quantity),
+  expiry: newTrade.expiry,
+  trade_date: newTrade.tradeDate,
+  status: newTrade.status,
+  entry_price: newTrade.entryPrice ? parseFloat(newTrade.entryPrice) : null,
+  exit_price: newTrade.exitPrice ? parseFloat(newTrade.exitPrice) : null
+};
+
 
   try {
     const { data, error } = await supabase.from('trades').insert([trade]).select();
