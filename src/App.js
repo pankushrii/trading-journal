@@ -324,48 +324,46 @@ const addTrade = async () => {
 
     return (
       <tr className="hover:bg-gray-50">
-        <td className="px-6 py-4 font-medium text-gray-900">{trade.stock}</td>
-        <td className="px-6 py-4">
-          <span className={`px-2 py-1 rounded-full text-xs ₹{
-            trade.strategy === 'cash-secured-put' 
-              ? 'bg-blue-100 text-blue-800' 
-              : 'bg-green-100 text-green-800'
-          }`}>
-            {trade.strategy === 'cash-secured-put' ? 'CSP' : trade.strategy === 'covered-call' ? 'CC' : 'Buy'}
-          </span>
-        </td>
-        <td className="px-6 py-4">₹{trade.strikePrice}</td>
-        <td className="px-6 py-4">₹{trade.premium}</td>
-        <td className="px-6 py-4">{trade.quantity}</td>
-        <td className="px-6 py-4">{trade.expiry}</td>
-        <td className="px-6 py-4">
-          <span className={`px-2 py-1 rounded-full text-xs ₹{
-            trade.status === 'open' 
-              ? 'bg-yellow-100 text-yellow-800' 
-              : trade.status === 'closed'
-              ? 'bg-green-100 text-green-800'
-              : 'bg-red-100 text-red-800'
-          }`}>
-            {trade.status}
-          </span>
-        </td>
-        <td className="px-6 py-4">
-          <div className="flex space-x-2">
-            <button
-              onClick={() => setEditing(true)}
-              className="text-blue-600 hover:text-blue-800"
-            >
-              <Edit2 size={18} />
-            </button>
-            <button
-              onClick={() => onDelete(trade.id)}
-              className="text-red-600 hover:text-red-800"
-            >
-              <Trash2 size={18} />
-            </button>
-          </div>
-        </td>
-      </tr>
+  <td className="px-6 py-4">₹{trade.earnings?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+  <td className="px-6 py-4 font-medium text-gray-900">{trade.stock}</td>
+  <td className="px-6 py-4">
+    <span className={`px-2 py-1 rounded-full text-xs ${
+      trade.strategy === 'cash-secured-put' 
+        ? 'bg-blue-100 text-blue-800' 
+        : 'bg-green-100 text-green-800'
+    }`}>
+      {trade.strategy === 'cash-secured-put' ? 'CSP' : trade.strategy === 'covered-call' ? 'CC' : 'Buy'}
+    </span>
+  </td>
+  <td className="px-6 py-4">₹{trade.strikePrice}</td>
+  <td className="px-6 py-4">₹{trade.premium}</td>
+  <td className="px-6 py-4">{trade.quantity}</td>
+  <td className="px-6 py-4">{trade.expiry}</td>
+  <td className="px-6 py-4">{trade.entryPrice || '-'}</td>
+  <td className="px-6 py-4">{trade.exitPrice || '-'}</td>
+  <td className="px-6 py-4">
+    <span className={`px-2 py-1 rounded-full text-xs ${
+      trade.status === 'open' 
+        ? 'bg-yellow-100 text-yellow-800' 
+        : trade.status === 'closed'
+        ? 'bg-green-100 text-green-800'
+        : 'bg-red-100 text-red-800'
+    }`}>
+      {trade.status}
+    </span>
+  </td>
+  <td className="px-6 py-4">
+    <div className="flex space-x-2">
+      <button onClick={() => setEditing(true)} className="text-blue-600 hover:text-blue-800">
+        <Edit2 size={18} />
+      </button>
+      <button onClick={() => onDelete(trade.id)} className="text-red-600 hover:text-red-800">
+        <Trash2 size={18} />
+      </button>
+    </div>
+  </td>
+</tr>
+
     );
   };
 
