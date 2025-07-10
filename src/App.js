@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, TrendingUp, TrendingDown, IndianRupee, Calendar, PieChart, Download, Upload, Trash2, Edit2, Check, X,IndianRupee } from 'lucide-react';
+import { Plus, TrendingUp, TrendingDown, IndianRupee, Calendar, PieChart, Download, Upload, Trash2, Edit2, Check, X } from 'lucide-react';
 
 const App = () => {
   const [trades, setTrades] = useState([]);
