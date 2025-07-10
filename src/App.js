@@ -14,7 +14,9 @@ const App = () => {
     quantity: '',
     expiry: '',
     tradeDate: new Date().toISOString().split('T')[0],
-    status: 'open'
+    status: 'open',
+    entryPrice: '',
+    exitPrice: ''
   });
 
   const calculateEarnings = (trade) => {
