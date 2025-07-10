@@ -212,162 +212,168 @@ const addTrade = async () => {
     const [editData, setEditData] = useState(trade);
 
     if (editing) {
-      return (
-        <tr className="bg-blue-50">
-          <td className="px-6 py-4">
-            <input
-              type="text"
-              value={editData.stock}
-              onChange={(e) => setEditData({...editData, stock: e.target.value})}
-              className="w-full px-2 py-1 border rounded"
-            />
-          </td>
-          <td className="px-6 py-4">
-            <select
-              value={editData.strategy}
-              onChange={(e) => setEditData({...editData, strategy: e.target.value})}
-              className="w-full px-2 py-1 border rounded"
-            >
-              <option value="cash-secured-put">Cash Secured Put</option>
-              <option value="covered-call">Covered Call</option>
-              <option value="stock-buy">Stock Buy</option>
-            </select>
-          </td>
-                <td className="px-6 py-4">₹{trade.earnings?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+  return (
+    <tr className="bg-blue-50">
+      <td className="px-6 py-4">
+        ₹{trade.earnings?.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+      </td>
+      <td className="px-6 py-4">
+        <input
+          type="text"
+          value={editData.stock}
+          onChange={(e) => setEditData({ ...editData, stock: e.target.value })}
+          className="w-full px-2 py-1 border rounded"
+        />
+      </td>
+      <td className="px-6 py-4">
+        <select
+          value={editData.strategy}
+          onChange={(e) => setEditData({ ...editData, strategy: e.target.value })}
+          className="w-full px-2 py-1 border rounded"
+        >
+          <option value="cash-secured-put">Cash Secured Put</option>
+          <option value="covered-call">Covered Call</option>
+          <option value="stock-buy">Stock Buy</option>
+        </select>
+      </td>
+      <td className="px-6 py-4">
+        <input
+          type="number"
+          value={editData.strikePrice}
+          onChange={(e) => setEditData({ ...editData, strikePrice: parseFloat(e.target.value) })}
+          className="w-full px-2 py-1 border rounded"
+        />
+      </td>
+      <td className="px-6 py-4">
+        <input
+          type="number"
+          value={editData.premium}
+          onChange={(e) => setEditData({ ...editData, premium: parseFloat(e.target.value) })}
+          className="w-full px-2 py-1 border rounded"
+        />
+      </td>
+      <td className="px-6 py-4">
+        <input
+          type="number"
+          value={editData.quantity}
+          onChange={(e) => setEditData({ ...editData, quantity: parseInt(e.target.value) })}
+          className="w-full px-2 py-1 border rounded"
+        />
+      </td>
+      <td className="px-6 py-4">
+        <input
+          type="date"
+          value={editData.expiry}
+          onChange={(e) => setEditData({ ...editData, expiry: e.target.value })}
+          className="w-full px-2 py-1 border rounded"
+        />
+      </td>
+      <td className="px-6 py-4">
+        <input
+          type="number"
+          value={editData.entryPrice || ''}
+          onChange={(e) => setEditData({ ...editData, entryPrice: e.target.value })}
+          className="w-full px-2 py-1 border rounded"
+          placeholder="Entry"
+        />
+      </td>
+      <td className="px-6 py-4">
+        <input
+          type="number"
+          value={editData.exitPrice || ''}
+          onChange={(e) => setEditData({ ...editData, exitPrice: e.target.value })}
+          className="w-full px-2 py-1 border rounded"
+          placeholder="Exit"
+        />
+      </td>
+      <td className="px-6 py-4">
+        <select
+          value={editData.status}
+          onChange={(e) => setEditData({ ...editData, status: e.target.value })}
+          className="w-full px-2 py-1 border rounded"
+        >
+          <option value="open">Open</option>
+          <option value="closed">Closed</option>
+          <option value="exercised">Exercised</option>
+        </select>
+      </td>
+      <td className="px-6 py-4">
+        <div className="flex space-x-2">
+          <button
+            onClick={() => {
+              onEdit(trade.id, editData);
+              setEditing(false);
+            }}
+            className="text-green-600 hover:text-green-800"
+          >
+            <Check size={18} />
+          </button>
+          <button
+            onClick={() => setEditing(false)}
+            className="text-red-600 hover:text-red-800"
+          >
+            <X size={18} />
+          </button>
+        </div>
+      </td>
+    </tr>
+  );
+}
 
-  <td className="px-6 py-4">
-  <input
-    type="number"
-    value={editData.entryPrice || ''}
-    onChange={(e) => setEditData({...editData, entryPrice: e.target.value})}
-    className="w-full px-2 py-1 border rounded"
-    placeholder="Entry"
-  />
-</td>
-
-<td className="px-6 py-4">
-  <input
-    type="number"
-    value={editData.exitPrice || ''}
-    onChange={(e) => setEditData({...editData, exitPrice: e.target.value})}
-    className="w-full px-2 py-1 border rounded"
-    placeholder="Exit"
-  />
-</td>
-
-
-          <td className="px-6 py-4">
-            <input
-              type="number"
-              value={editData.strikePrice}
-              onChange={(e) => setEditData({...editData, strikePrice: parseFloat(e.target.value)})}
-              className="w-full px-2 py-1 border rounded"
-            />
-          </td>
-          <td className="px-6 py-4">
-            <input
-              type="number"
-              value={editData.premium}
-              onChange={(e) => setEditData({...editData, premium: parseFloat(e.target.value)})}
-              className="w-full px-2 py-1 border rounded"
-            />
-          </td>
-          <td className="px-6 py-4">
-            <input
-              type="number"
-              value={editData.quantity}
-              onChange={(e) => setEditData({...editData, quantity: parseInt(e.target.value)})}
-              className="w-full px-2 py-1 border rounded"
-            />
-          </td>
-          <td className="px-6 py-4">
-            <input
-              type="date"
-              value={editData.expiry}
-              onChange={(e) => setEditData({...editData, expiry: e.target.value})}
-              className="w-full px-2 py-1 border rounded"
-            />
-          </td>
-          <td className="px-6 py-4">
-            <select
-              value={editData.status}
-              onChange={(e) => setEditData({...editData, status: e.target.value})}
-              className="w-full px-2 py-1 border rounded"
-            >
-              <option value="open">Open</option>
-              <option value="closed">Closed</option>
-              <option value="exercised">Exercised</option>
-            </select>
-          </td>
-          <td className="px-6 py-4">
-            <div className="flex space-x-2">
-              <button
-                onClick={() => {
-                  onEdit(trade.id, editData);
-                  setEditing(false);
-                }}
-                className="text-green-600 hover:text-green-800"
-              >
-                <Check size={18} />
-              </button>
-              <button
-                onClick={() => setEditing(false)}
-                className="text-red-600 hover:text-red-800"
-              >
-                <X size={18} />
-              </button>
-            </div>
-          </td>
-        </tr>
-      );
-    }
 
     return (
-      <tr className="hover:bg-gray-50">
-        <td className="px-6 py-4 font-medium text-gray-900">{trade.stock}</td>
-        <td className="px-6 py-4">
-          <span className={`px-2 py-1 rounded-full text-xs ₹{
-            trade.strategy === 'cash-secured-put' 
-              ? 'bg-blue-100 text-blue-800' 
-              : 'bg-green-100 text-green-800'
-          }`}>
-            {trade.strategy === 'cash-secured-put' ? 'CSP' : trade.strategy === 'covered-call' ? 'CC' : 'Buy'}
-          </span>
-        </td>
-        <td className="px-6 py-4">₹{trade.strikePrice}</td>
-        <td className="px-6 py-4">₹{trade.premium}</td>
-        <td className="px-6 py-4">{trade.quantity}</td>
-        <td className="px-6 py-4">{trade.expiry}</td>
-        <td className="px-6 py-4">
-          <span className={`px-2 py-1 rounded-full text-xs ₹{
-            trade.status === 'open' 
-              ? 'bg-yellow-100 text-yellow-800' 
-              : trade.status === 'closed'
-              ? 'bg-green-100 text-green-800'
-              : 'bg-red-100 text-red-800'
-          }`}>
-            {trade.status}
-          </span>
-        </td>
-        <td className="px-6 py-4">
-          <div className="flex space-x-2">
-            <button
-              onClick={() => setEditing(true)}
-              className="text-blue-600 hover:text-blue-800"
-            >
-              <Edit2 size={18} />
-            </button>
-            <button
-              onClick={() => onDelete(trade.id)}
-              className="text-red-600 hover:text-red-800"
-            >
-              <Trash2 size={18} />
-            </button>
-          </div>
-        </td>
-      </tr>
-    );
-  };
+  <tr className="hover:bg-gray-50">
+    <td className="px-6 py-4">
+      ₹{(trade.earnings || 0).toLocaleString(undefined, { maximumFractionDigits: 2 })}
+    </td>
+    <td className="px-6 py-4 font-medium text-gray-900">{trade.stock}</td>
+    <td className="px-6 py-4">
+      <span className={`px-2 py-1 rounded-full text-xs ${
+        trade.strategy === 'cash-secured-put' 
+          ? 'bg-blue-100 text-blue-800' 
+          : trade.strategy === 'covered-call'
+          ? 'bg-green-100 text-green-800'
+          : 'bg-gray-100 text-gray-800'
+      }`}>
+        {trade.strategy === 'cash-secured-put' ? 'CSP' : trade.strategy === 'covered-call' ? 'CC' : 'Buy'}
+      </span>
+    </td>
+    <td className="px-6 py-4">₹{trade.strikePrice}</td>
+    <td className="px-6 py-4">₹{trade.premium}</td>
+    <td className="px-6 py-4">{trade.quantity}</td>
+    <td className="px-6 py-4">{trade.expiry}</td>
+    <td className="px-6 py-4">{trade.entryPrice ?? '-'}</td>
+    <td className="px-6 py-4">{trade.exitPrice ?? '-'}</td>
+    <td className="px-6 py-4">
+      <span className={`px-2 py-1 rounded-full text-xs ${
+        trade.status === 'open' 
+          ? 'bg-yellow-100 text-yellow-800' 
+          : trade.status === 'closed'
+          ? 'bg-green-100 text-green-800'
+          : 'bg-red-100 text-red-800'
+      }`}>
+        {trade.status}
+      </span>
+    </td>
+    <td className="px-6 py-4">
+      <div className="flex space-x-2">
+        <button
+          onClick={() => setEditing(true)}
+          className="text-blue-600 hover:text-blue-800"
+        >
+          <Edit2 size={18} />
+        </button>
+        <button
+          onClick={() => onDelete(trade.id)}
+          className="text-red-600 hover:text-red-800"
+        >
+          <Trash2 size={18} />
+        </button>
+      </div>
+    </td>
+  </tr>
+);
+
 
   return (
     <div className="min-h-screen bg-gray-50">
