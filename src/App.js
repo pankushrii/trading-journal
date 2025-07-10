@@ -17,12 +17,15 @@ const App = () => {
   });
 
   // Load trades from localStorage on component mount
-  useEffect(() => {
-    const savedTrades = localStorage.getItem('wheelTrades');
-    if (savedTrades) {
-      setTrades(JSON.parse(savedTrades));
-    }
-  }, []);
+ useEffect(() => {
+  const fetchTrades = async () => {
+    const { data, error } = await supabase.from('trades').select('*').order('trade_date', { ascending: false });
+    if (error) console.error('Error fetching trades:', error);
+    else setTrades(data);
+  };
+  fetchTrades();
+}, []);
+
 
   // Save trades to localStorage whenever trades change
   useEffect(() => {
