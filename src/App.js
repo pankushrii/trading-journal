@@ -12,7 +12,7 @@ const App = () => {
     strikePrice: '',
     premium: '',
     quantity: '',
-    expiry: '',a
+    expiry: '',
     tradeDate: new Date().toISOString().split('T')[0],
     status: 'open'
   });
