@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import supabase from './supabaseClient';
 import { Plus, TrendingUp, TrendingDown, IndianRupee, Calendar, PieChart, Download, Upload, Trash2, Edit2, Check, X } from 'lucide-react';
 
 const App = () => {
@@ -32,22 +33,37 @@ const App = () => {
     localStorage.setItem('wheelTrades', JSON.stringify(trades));
   }, [trades]);
 
-  const addTrade = () => {
-    if (!newTrade.stock || !newTrade.strikePrice || !newTrade.premium || !newTrade.quantity || !newTrade.expiry) {
-      alert('Please fill all required fields');
+const addTrade = async () => {
+  if (!newTrade.stock || !newTrade.strikePrice || !newTrade.premium || !newTrade.quantity || !newTrade.expiry) {
+    alert('Please fill all required fields');
+    return;
+  }
+
+  const trade = {
+    stock: newTrade.stock,
+    strategy: newTrade.strategy,
+    strike_price: parseFloat(newTrade.strikePrice),
+    premium: parseFloat(newTrade.premium),
+    quantity: parseInt(newTrade.quantity),
+    expiry: newTrade.expiry,
+    trade_date: newTrade.tradeDate,
+    status: newTrade.status,
+    total_premium: parseFloat(newTrade.premium) * parseInt(newTrade.quantity)
+  };
+
+  try {
+    const { data, error } = await supabase.from('trades').insert([trade]).select();
+
+    if (error) {
+      console.error('❌ Supabase Insert Error:', error);
+      alert('Error saving trade. Please try again.');
       return;
     }
 
-    const trade = {
-      id: Date.now(),
-      ...newTrade,
-      strikePrice: parseFloat(newTrade.strikePrice),
-      premium: parseFloat(newTrade.premium),
-      quantity: parseInt(newTrade.quantity),
-      totalPremium: parseFloat(newTrade.premium) * parseInt(newTrade.quantity)
-    };
+    // Add new trade to state
+    setTrades([...trades, data[0]]);
 
-    setTrades([...trades, trade]);
+    // Reset form
     setNewTrade({
       stock: '',
       strategy: 'cash-secured-put',
@@ -58,8 +74,13 @@ const App = () => {
       tradeDate: new Date().toISOString().split('T')[0],
       status: 'open'
     });
+
     setShowAddTrade(false);
-  };
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    alert('Unexpected error while saving trade.');
+  }
+};
 
   const updateTrade = (id, updatedTrade) => {
     setTrades(trades.map(trade => 
