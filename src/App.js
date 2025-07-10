@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, TrendingUp, TrendingDown, DollarSign, Calendar, PieChart, Download, Upload, Trash2, Edit2, Check, X } from 'lucide-react';
+import { Plus, TrendingUp, TrendingDown, IndianRupee, Calendar, PieChart, Download, Upload, Trash2, Edit2, Check, X,IndianRupee } from 'lucide-react';
 
 const App = () => {
   const [trades, setTrades] = useState([]);
@@ -267,7 +267,7 @@ const App = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
           <div className="bg-white p-6 rounded-lg shadow-sm">
             <div className="flex items-center">
-              <DollarSign className="h-8 w-8 text-green-600" />
+              <IndianRupee className="h-8 w-8 text-green-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Total Premium</p>
                 <p className="text-2xl font-bold text-gray-900">₹{stats.totalPremium.toLocaleString()}</p>
