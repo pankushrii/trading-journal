@@ -82,20 +82,57 @@ const addTrade = async () => {
   }
 };
 
-  const updateTrade = (id, updatedTrade) => {
-    setTrades(trades.map(trade => 
-      trade.id === id 
-        ? { ...updatedTrade, totalPremium: updatedTrade.premium * updatedTrade.quantity }
-        : trade
-    ));
-    setEditingTrade(null);
+ const updateTrade = async (id, updatedTrade) => {
+  const updated = {
+    stock: updatedTrade.stock,
+    strategy: updatedTrade.strategy,
+    strike_price: parseFloat(updatedTrade.strikePrice),
+    premium: parseFloat(updatedTrade.premium),
+    quantity: parseInt(updatedTrade.quantity),
+    expiry: updatedTrade.expiry,
+    trade_date: updatedTrade.tradeDate,
+    status: updatedTrade.status
+    // ⚠️ Do NOT include `total_premium` — it's auto-calculated
   };
 
-  const deleteTrade = (id) => {
-    if (window.confirm('Are you sure you want to delete this trade?')) {
-      setTrades(trades.filter(trade => trade.id !== id));
-    }
-  };
+  const { error } = await supabase
+    .from('trades')
+    .update(updated)
+    .eq('id', id);
+
+  if (error) {
+    console.error('❌ Update failed:', error);
+    alert('Failed to update trade.');
+    return;
+  }
+
+  // Update state locally
+  setTrades(trades.map(trade =>
+    trade.id === id ? { ...trade, ...updated } : trade
+  ));
+
+  setEditingTrade(null);
+};
+
+
+ const deleteTrade = async (id) => {
+  if (!window.confirm('Are you sure you want to delete this trade?')) return;
+
+  const { error } = await supabase
+    .from('trades')
+    .delete()
+    .eq('id', id);
+
+  if (error) {
+    console.error('❌ Delete failed:', error);
+    alert('Failed to delete trade.');
+    return;
+  }
+
+  // Remove trade from state
+  setTrades(trades.filter(trade => trade.id !== id));
+};
+
 
   const calculateStats = () => {
     const totalPremium = trades.reduce((sum, trade) => sum + trade.totalPremium, 0);
