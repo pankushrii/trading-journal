@@ -205,6 +205,8 @@ const addTrade = async () => {
               <option value="covered-call">Covered Call</option>
             </select>
           </td>
+                <td className="px-6 py-4">₹{trade.earnings?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+
           <td className="px-6 py-4">
             <input
               type="number"
@@ -519,6 +521,7 @@ const addTrade = async () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Earnings</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Strategy</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Strike Price</th>
