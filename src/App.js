@@ -17,6 +17,12 @@ const App = () => {
     status: 'open'
   });
 
+  const calculateEarnings = (trade) => {
+  const { entry_price, exit_price, quantity } = trade;
+  if (entry_price == null || exit_price == null || quantity == null) return 0;
+  return (exit_price - entry_price) * quantity;
+};
+
   // Load trades from localStorage on component mount
 useEffect(() => {
   const fetchTrades = async () => {
@@ -42,6 +48,7 @@ useEffect(() => {
   fetchTrades();
 }, []);
 
+  
   // Save trades to localStorage whenever trades change
   useEffect(() => {
     localStorage.setItem('wheelTrades', JSON.stringify(trades));
