@@ -42,8 +42,6 @@ useEffect(() => {
   totalPremium: (trade.premium || 0) * (trade.quantity || 0),
   earnings: calculateEarnings(trade)
 }));
-
-      }));
       setTrades(enrichedTrades);
     }
   };
