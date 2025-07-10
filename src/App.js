@@ -331,7 +331,7 @@ const addTrade = async () => {
               ? 'bg-blue-100 text-blue-800' 
               : 'bg-green-100 text-green-800'
           }`}>
-            {trade.strategy === 'cash-secured-put' ? 'CSP' : 'CC'}
+            {trade.strategy === 'cash-secured-put' ? 'CSP' : trade.strategy === 'covered-call' ? 'CC' : 'Buy'}
           </span>
         </td>
         <td className="px-6 py-4">₹{trade.strikePrice}</td>
