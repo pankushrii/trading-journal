@@ -18,20 +18,30 @@ const App = () => {
   });
 
   // Load trades from localStorage on component mount
- useEffect(() => {
+useEffect(() => {
   const fetchTrades = async () => {
-    const { data, error } = await supabase.from('trades').select('*').order('trade_date', { ascending: false });
-    if (error) console.error('Error fetching trades:', error);
-    else else {
-  const enrichedTrades = data.map(trade => ({
-    ...trade,
-    strikePrice: trade.strike_price,
-    entryPrice: trade.entry_price,
-    exitPrice: trade.exit_price,
-    earnings: calculateEarnings(trade)
-  }));
-  setTrades(enrichedTrades);
-}
+    const { data, error } = await supabase
+      .from('trades')
+      .select('*')
+      .order('trade_date', { ascending: false });
+
+    if (error) {
+      console.error('Error fetching trades:', error);
+    } else {
+      const enrichedTrades = data.map(trade => ({
+        ...trade,
+        strikePrice: trade.strike_price,
+        entryPrice: trade.entry_price,
+        exitPrice: trade.exit_price,
+        earnings: calculateEarnings(trade)
+      }));
+      setTrades(enrichedTrades);
+    }
+  };
+
+  fetchTrades();
+}, []);
+
   // Save trades to localStorage whenever trades change
   useEffect(() => {
     localStorage.setItem('wheelTrades', JSON.stringify(trades));
