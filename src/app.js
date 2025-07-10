@@ -212,7 +212,7 @@ const App = () => {
       <tr className="hover:bg-gray-50">
         <td className="px-6 py-4 font-medium text-gray-900">{trade.stock}</td>
         <td className="px-6 py-4">
-          <span className={`px-2 py-1 rounded-full text-xs ${
+          <span className={`px-2 py-1 rounded-full text-xs ₹{
             trade.strategy === 'cash-secured-put' 
               ? 'bg-blue-100 text-blue-800' 
               : 'bg-green-100 text-green-800'
@@ -225,7 +225,7 @@ const App = () => {
         <td className="px-6 py-4">{trade.quantity}</td>
         <td className="px-6 py-4">{trade.expiry}</td>
         <td className="px-6 py-4">
-          <span className={`px-2 py-1 rounded-full text-xs ${
+          <span className={`px-2 py-1 rounded-full text-xs ₹{
             trade.status === 'open' 
               ? 'bg-yellow-100 text-yellow-800' 
               : trade.status === 'closed'
