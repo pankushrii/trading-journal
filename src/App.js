@@ -35,11 +35,14 @@ useEffect(() => {
       console.error('Error fetching trades:', error);
     } else {
       const enrichedTrades = data.map(trade => ({
-        ...trade,
-        strikePrice: trade.strike_price,
-        entryPrice: trade.entry_price,
-        exitPrice: trade.exit_price,
-        earnings: calculateEarnings(trade)
+  ...trade,
+  strikePrice: trade.strike_price,
+  entryPrice: trade.entry_price,
+  exitPrice: trade.exit_price,
+  totalPremium: (trade.premium || 0) * (trade.quantity || 0),
+  earnings: calculateEarnings(trade)
+}));
+
       }));
       setTrades(enrichedTrades);
     }
