@@ -3,7 +3,7 @@ import {
     Plus, TrendingUp, TrendingDown, IndianRupee, PieChart,
     Download, Upload, Trash2, Edit2, Check, X
 } from 'lucide-react';
-import supabase from './supabaseClient';
+import supabase from './lib/supabaseClient';
 
 const defaultTrade = {
     stock: '',
