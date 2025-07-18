@@ -3,7 +3,7 @@ import {
   Plus, TrendingUp, TrendingDown, IndianRupee, PieChart as PieIcon,
   Download, Upload, Trash2, Edit2, Check, X, FileText
 } from 'lucide-react';
-import supabase from './supabaseClient';
+import supabase from './lib/supabaseClient';
 import {
   AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend
 } from 'recharts';
